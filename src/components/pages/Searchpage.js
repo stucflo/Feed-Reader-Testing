@@ -1,9 +1,14 @@
+/* Import necessary dependencies */
+
+
 import React from "react";
 import { Link } from 'react-router-dom'
 
 import Book from '../Book';
 
 import * as BooksAPI from '../../BooksAPI'
+
+/* Create Search Methods */
 
 class SearchPage extends React.Component{
 
@@ -23,25 +28,35 @@ componentDidMount(){
   });
 }
 
+updateBook = (book, shelf) => {
+  BooksAPI.update(book, shelf)
+  .then(resp => {
+   book.shelf = shelf;
+   this.setState(state => ({
+     books: state.books.filter(b => b.id !== book.id).concat([book])
+   }));
+  }); 
+}
+
 updateQuery = (query) => {
   this.setState({query: query}, this.submitSearch);
 }
+
+/* Submit Search Function */
 
 submitSearch() {
   if(this.state.query === '' || this.state.query === undefined){
     return this.setState({results: [] });
   }
   BooksAPI.search(this.state.query.trim()).then(res =>{
-    console.log(res);
     if(res.error) {
       return this.setState({ results: [] });
     }
     else{
       res.forEach(b => {
-        let f = this.state.books.filter(B => B.id === b.id);
-        if(f[0]){
-          console.log('match');
-          b.shelf = f[0].shelf;
+        let find = this.state.books.filter(Book => Book.id === b.id);
+        if(find [0]){
+          b.shelf = find[0].shelf;
         }         
       });
       return this.setState({ results: res });

@@ -1,8 +1,12 @@
+/* Import necessary dependencies */
+
 import React from "react";
 import { Link } from 'react-router-dom'
 import * as BooksAPI from '../../BooksAPI'
 
 import Shelf from '../Shelf';  
+
+/* Create Main Page functions */
 
 class MainPage extends React.Component{
   constructor(props) {
@@ -14,7 +18,6 @@ class MainPage extends React.Component{
     componentDidMount(){
       BooksAPI.getAll()
       .then(resp =>{
-        console.log(resp);
         this.setState({ books: resp });
       });
     }

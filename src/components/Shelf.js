@@ -1,6 +1,10 @@
+/* Import necessary dependencies */
+
 import React from "react";
 import { Link } from 'react-router-dom'
 import Book from './Book';
+
+/* Create Shelf Component */
 
 class Shelf extends React.Component{
   componentDidMount(){
@@ -13,7 +17,7 @@ class Shelf extends React.Component{
             <div className="bookshelf-books">
               <ol className="books-grid">
                 {
-                  this.props.books.map((book, key) =><Book updateBook={this.props.updateBook} book={book} key={key} />)
+                  this.props.books.map((book, key) => <Book updateBook={this.props.updateBook} book={book} key={key} />)
                 }
               </ol>
             </div>
